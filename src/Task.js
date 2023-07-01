@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faCheck, faPenToSquare, faX, faRotateRight } from '@fortawesome/free-solid-svg-icons'
+import { TaskContext } from './App';
 
-export function Task(props){
+export function Task(props) {
+    const { deleteTask, markCompletion, editTask } = useContext(TaskContext);
+
     const [deleteIsBouncing, setDeleteIsBouncing] = useState(false);
     const [completedIsBouncing, setCompletedIsBouncing] = useState(false);
     const [editIsBouncing, setEditIsBouncing] = useState(false);
@@ -11,7 +14,7 @@ export function Task(props){
     const [editedTask, setEditedTask] = useState(props.task.taskName);
 
     const handleEdit = () => {
-      isEditing && props.editTask(props.task.id, editedTask);
+      isEditing && editTask(props.task.id, editedTask);
       setEditedTask(props.task.taskName);
       setIsEditing(!isEditing);
     }
@@ -24,7 +27,7 @@ export function Task(props){
         <div style={{textAlign:'right'}}> 
           <button 
             style={{marginLeft:'0.5rem', display: isEditing ? 'none' : 'inline-block'}}
-            onClick={() => props.deleteTask(props.task.id)}
+            onClick={() => deleteTask(props.task.id)}
             onMouseOver={() => setDeleteIsBouncing(true)}
             onMouseOut={() => setDeleteIsBouncing(false)}
             onFocus={() => setDeleteIsBouncing(true)}
@@ -34,7 +37,7 @@ export function Task(props){
           </button>
           <button
             style={{marginLeft:'0.5rem', display: isEditing ? 'none' : 'inline-block'}}
-            onClick={() => props.markCompletion(props.task.id)}
+            onClick={() => markCompletion(props.task.id)}
             onMouseOver={() => setCompletedIsBouncing(true)}
             onMouseOut={() => setCompletedIsBouncing(false)}
             onFocus={() => setCompletedIsBouncing(true)}

@@ -5,7 +5,7 @@ export function TaskList(props){
       <div className='taskList'>
         {props.tasks.map((task) => {
           return( 
-            <Task key={task.id} task={task} deleteTask={props.deleteTask} editTask={props.editTask} markCompletion={props.markCompletion}/>
+            <Task key={task.id} task={task} />
           );})
         }
       </div>

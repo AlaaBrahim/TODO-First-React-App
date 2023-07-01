@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { TaskInput } from './TaskInput';
 import { TaskList } from './TaskList';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
+export const TaskContext = createContext();
 
 function App() {
 
@@ -58,8 +59,10 @@ function App() {
     <main class="container">
       <ThemeSwitcher/>
       <br/><br/><br/>
-      <TaskInput inputTask={inputTask} setInputTask={setInputTask} addTask={addTask}/>
-      <TaskList tasks={tasks} deleteTask={deleteTask} editTask={editTask} markCompletion={markCompletion}/>
+      <TaskInput inputTask={inputTask} setInputTask={setInputTask} addTask={addTask} />
+      <TaskContext.Provider value={{deleteTask, editTask, markCompletion}}>
+        <TaskList tasks={tasks} />
+      </TaskContext.Provider>
     </main>
   );
 }
